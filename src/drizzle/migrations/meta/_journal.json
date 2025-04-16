@@ -1,0 +1,69 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1744114113142,
+      "tag": "0000_superb_hydra",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1744294087253,
+      "tag": "0001_curious_sugar_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1744793669191,
+      "tag": "0002_bright_glorian",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1744795321116,
+      "tag": "0003_glossy_white_queen",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1744795456907,
+      "tag": "0004_simple_wraith",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1744795620623,
+      "tag": "0005_curious_inertia",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1744795739043,
+      "tag": "0006_cold_longshot",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1744796197617,
+      "tag": "0007_hesitant_vermin",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1744797727310,
+      "tag": "0008_nosy_bedlam",
+      "breakpoints": true
+    }
+  ]
+}
