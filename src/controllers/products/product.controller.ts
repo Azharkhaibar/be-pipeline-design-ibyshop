@@ -3,7 +3,7 @@ import { MySqlTable } from "drizzle-orm/mysql-core";
 import { asc, desc, eq, like } from "drizzle-orm";
 import { productTable } from "../../db/schema/sc_product";
 import { zValidator } from "@hono/zod-validator";
-import { z } from "zod";
+import { any, z } from "zod";
 import { DBConnection } from "../../db/database/dbIndex";
 import { off } from "process";
 import { error } from "console";
@@ -191,4 +191,20 @@ router_product.patch('/:id',
     }
 );
 
-
+router_product.delete('/:id', async (c) => {
+    const id = Number(c.req.param('id'));
+    if (isNaN(id)) {
+      return Promise.resolve(c.json({ error: 'Invalid ID' }, 400));
+    }
+    return DBConnection().then((db) => {
+      return db.delete(productTable).where(eq(productTable.id, id))
+        .then((result) => {
+          return c.json({ message: `Product with ID ${id} deleted`, result });
+        });
+    }).catch((err) => {
+      console.error(err);
+      return c.json({ error: 'Internal Server Error' }, 500);
+    });
+  });
+  
+  export default router_product;
