@@ -1,12 +1,9 @@
 import { Hono } from "hono";
-import { MySqlTable } from "drizzle-orm/mysql-core";
 import { asc, desc, eq, like } from "drizzle-orm";
 import { productTable } from "../../db/schema/sc_product";
 import { zValidator } from "@hono/zod-validator";
-import { any, z } from "zod";
+import { z } from "zod";
 import { DBConnection } from "../../db/database/dbIndex";
-import { off } from "process";
-import { error } from "console";
 
 export const router_product = new Hono();
 
@@ -19,20 +16,16 @@ router_product.get('/',
     })),
     async (c) => {
         const { limit, sort, offset, search } = c.req.valid('query');
-        
+
         try {
             const DB = await DBConnection();
             let query: any = DB.select().from(productTable);
             if (search) {
                 query = query.where(like(productTable.namaProduk, `%${search}%`));
             }
-            
-            query = query.limit(limit)
-                         .offset(offset)
-                         .orderBy(
-                             sort === 'asc' ? asc(productTable.created_at) : desc(productTable.created_at)
-                         );
-        
+            query = query.limit(limit).offset(offset).orderBy(
+                    sort === 'asc' ? asc(productTable.created_at) : desc(productTable.created_at)
+                );
             const results = await query;
             return c.json(results);
         } catch (err) {
@@ -194,17 +187,17 @@ router_product.patch('/:id',
 router_product.delete('/:id', async (c) => {
     const id = Number(c.req.param('id'));
     if (isNaN(id)) {
-      return Promise.resolve(c.json({ error: 'Invalid ID' }, 400));
+        return Promise.resolve(c.json({ error: 'Invalid ID' }, 400));
     }
     return DBConnection().then((db) => {
-      return db.delete(productTable).where(eq(productTable.id, id))
-        .then((result) => {
-          return c.json({ message: `Product with ID ${id} deleted`, result });
-        });
+        return db.delete(productTable).where(eq(productTable.id, id))
+            .then((result) => {
+                return c.json({ message: `Product with ID ${id} deleted`, result });
+            });
     }).catch((err) => {
-      console.error(err);
-      return c.json({ error: 'Internal Server Error' }, 500);
+        console.error(err);
+        return c.json({ error: 'Internal Server Error' }, 500);
     });
-  });
-  
-  export default router_product;
+});
+
+export default router_product;
