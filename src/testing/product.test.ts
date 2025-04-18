@@ -7,8 +7,9 @@ let server: any;
 beforeAll(async () => {
   server = await serve({
     fetch: app.fetch,
-    port: 3001,
+    port: 3002, // Ganti port jadi 3002
   });
+  console.log('Server is running on port 3002');
 });
 
 afterAll(() => {
@@ -17,7 +18,7 @@ afterAll(() => {
 
 describe('GET /product', () => {
   it('should return list of products', () => {
-    return fetch('http://localhost:3001/product')
+    return fetch('http://localhost:3002/product') // Ganti port ke 3002
       .then(res => {
         expect(res.status).toBe(200);
         return res.json();
@@ -53,7 +54,7 @@ describe('PATCH /product', () => {
       fkcategory: 0,
     };
 
-    return fetch('http://localhost:3001/product/1', {
+    return fetch('http://localhost:3002/product/1', { // Ganti port ke 3002
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(invalidProductData),
@@ -89,7 +90,7 @@ describe('PATCH /product', () => {
       fkcategory: 1,
     };
 
-    return fetch('http://localhost:3001/product/999', {
+    return fetch('http://localhost:3002/product/999', { // Ganti port ke 3002
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(validProductData),
@@ -120,7 +121,7 @@ describe('PATCH /product', () => {
       fkcategory: 2,
     };
 
-    return fetch('http://localhost:3001/product/1', {
+    return fetch('http://localhost:3002/product/1', { // Ganti port ke 3002
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(validProductData),

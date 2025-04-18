@@ -10,7 +10,7 @@ import { zValidator } from "@hono/zod-validator";
 
 const router_customer = new Hono
 
-router_customer.get('/customer/list', zValidator('query', z.object({
+router_customer.get('/list', zValidator('query', z.object({
     limit: z.coerce.number().min(1).max(100).optional().default(10),
     offset: z.coerce.number().min(0).optional().default(0),
     sort: z.enum(['asc', 'desc']).optional().default('asc'),
@@ -31,7 +31,7 @@ router_customer.get('/customer/list', zValidator('query', z.object({
     }
 });
 
-router_customer.get('/customer/search', zValidator('query', z.object({
+router_customer.get('/search', zValidator('query', z.object({
     substr: z.string().min(1, "Keyword pencarian diperlukan"),
 })), async (c) => {
     try {
@@ -51,7 +51,7 @@ router_customer.get('/customer/search', zValidator('query', z.object({
 });
 
 
-router_customer.get('/customer/:id', async (c) => {
+router_customer.get('/:id', async (c) => {
     try {
         const id = Number(c.req.param('id')); 
         const DBConnect = await DBConnection();
@@ -69,7 +69,7 @@ router_customer.get('/customer/:id', async (c) => {
     }
 });
 
-router_customer.post('/customer', zValidator('json', z.object({
+router_customer.post('/', zValidator('json', z.object({
     namaCustomer: z.string().min(2, "nama panjang minimal 2 huruf"),
     email: z.string().email(),
     status: z.enum(["active", "inactive"]),
@@ -100,7 +100,7 @@ router_customer.post('/customer', zValidator('json', z.object({
 
 // perlu di perbaiki
 
-router_customer.patch('/customer/:id', zValidator('json', z.object({
+router_customer.patch('/:id', zValidator('json', z.object({
     namaCustomer: z.string().min(2, "nama panjang minimal 2 huruf").optional(),
     email: z.string().email().optional(),
     status: z.enum(["active", "inactive"]).optional(),
@@ -134,7 +134,7 @@ router_customer.patch('/customer/:id', zValidator('json', z.object({
         });
 });
 
-router_customer.delete('/customer/:id', async (c) => {
+router_customer.delete('/:id', async (c) => {
     try {
         const DBConnect = await DBConnection(); 
         const id = Number(c.req.param("id"));

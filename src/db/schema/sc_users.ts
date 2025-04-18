@@ -40,4 +40,3 @@ export const usersSecureTable = mysqlTable("users_secure", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
-
